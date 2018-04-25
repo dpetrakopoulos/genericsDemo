@@ -91,7 +91,7 @@ class Example<T>{
 		System.out.println(numberList);
 	}
 	
-	public <T extends Number> void display(T number) {
+	public <U extends Number> void display(U number) {
 		System.out.println(number);
 	}
 	
