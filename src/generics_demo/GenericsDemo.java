@@ -7,7 +7,7 @@ import java.util.List;
 public class GenericsDemo {
 
 	public static void main(String[] args) {
-		Container<String> stringStore = new Store<>("");
+		Container<String> stringStore = new Store<>();
 		stringStore.set("Java");
 		System.out.println(stringStore.get());
 		System.out.println(stringStore.saySomething("Hello"));
@@ -29,6 +29,9 @@ public class GenericsDemo {
 		Example<String> exString = new Example<>();
 		exString.setExample("test");
 		System.out.println(exString.getExample());
+		//exString.display("2"); //does not compile
+		exString.display(3);
+		exString.display(2.2);
 		//exString.printList(Arrays.asList("1","2")); //does not compile
 		exString.printList(Arrays.asList(5,6,7));
 		
@@ -48,6 +51,10 @@ interface Container<T> {
 class Store<T> implements Container<T>{
 	
 	private T a;
+	
+	Store(){
+		System.out.println("Inside empty constructor");
+	}
 	
 	Store(T obj){
 		a = obj;
@@ -82,6 +89,10 @@ class Example<T>{
 
 	public void printList(List<? extends Number> numberList) {
 		System.out.println(numberList);
+	}
+	
+	public <T extends Number> void display(T number) {
+		System.out.println(number);
 	}
 	
 	@Override
