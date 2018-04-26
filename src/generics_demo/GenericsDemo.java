@@ -3,6 +3,7 @@ package generics_demo;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.IntConsumer;
 import java.util.function.Supplier;
@@ -45,6 +46,7 @@ public class GenericsDemo {
 		System.out.println("Function Interface test: " + FunctionalInterfacesDemo.strToInt("42"));
 		FunctionalInterfacesDemo.testIntConsumer(4);
 		FunctionalInterfacesDemo.testSupplier();
+		FunctionalInterfacesDemo.testConsumer(8);
 	}
 
 }
@@ -136,5 +138,13 @@ class FunctionalInterfacesDemo {
 	static void printNames(Supplier<String> supplier) {
 		System.out.println("Supplier interface test on list: " + supplier.get());
 	}
+	
+	static void testConsumer(int x) {
+		Consumer<Integer> intConsumer = number -> System.out.println("Consumer interface: " + number);
+		intConsumer.accept(x);
+	}
 		
+	
+	
+	
 }
