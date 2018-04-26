@@ -3,6 +3,9 @@ package generics_demo;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Function;
+import java.util.function.IntConsumer;
+import java.util.function.Supplier;
 
 public class GenericsDemo {
 
@@ -38,6 +41,10 @@ public class GenericsDemo {
 		Example<Integer> exInteger = new Example<>();
 		exInteger.setExample(2);
 		System.out.println(exInteger.getExample());
+		
+		System.out.println("Function Interface test: " + FunctionalInterfacesDemo.strToInt("42"));
+		FunctionalInterfacesDemo.testIntConsumer(4);
+		FunctionalInterfacesDemo.testSupplier();
 	}
 
 }
@@ -99,4 +106,35 @@ class Example<T>{
 	public String toString() {
 		return "Example [example=" + example + "]";
 	}
+}
+
+class FunctionalInterfacesDemo {
+	static int strToInt(String s){
+		Function<String, Integer> test = Integer::parseInt;
+	    return test.apply(s);	
+	}
+	
+	static void testIntConsumer(int x) {
+		IntConsumer intCons = (number) -> System.out.println("IntConsumer interface number: " + number);
+		IntConsumer tripleAdder = (a) -> System.out.println("IntConsumer interface triple adder: " + a + a + a);
+		IntConsumer multiplier = (a) -> System.out.println("IntConsumer interface multiplier: " + a * a);
+		intCons.accept(x);
+		tripleAdder.accept(x);
+		multiplier.accept(x);
+	}
+	
+	static void testSupplier() {
+		List<String> names = new ArrayList<>();
+		names.add("John");
+		names.add("Tom");
+		
+		names.stream().forEach((x) -> {
+			printNames(() -> x);		
+		});
+	}
+	
+	static void printNames(Supplier<String> supplier) {
+		System.out.println("Supplier interface test on list: " + supplier.get());
+	}
+		
 }
